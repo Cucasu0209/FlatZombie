@@ -8,6 +8,7 @@ public class ShopPopup : MonoBehaviour
     [Header("General")]
     [SerializeField] private Button CloseButton;
     [SerializeField] private RectTransform PopupContent;
+    [SerializeField] private ShopGrid Grid;
 
     private void Start()
     {
@@ -29,7 +30,9 @@ public class ShopPopup : MonoBehaviour
     private void OpenPopup()
     {
         PopupContent.gameObject.SetActive(true);
-        UpdateState();
+        UpdateState(); 
+        Grid.UpdateWeaponList();
+
     }
     private void HidePopup()
     {

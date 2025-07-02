@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726e5d7e8f6d0df4f87febd5b408b41f, type: 3}
   m_Name: Weapon2_Melee
   m_EditorClassIdentifier: 
-  ID: 1
+  ID: 2
   Name: Shove
   Price: 900
   Type: 0

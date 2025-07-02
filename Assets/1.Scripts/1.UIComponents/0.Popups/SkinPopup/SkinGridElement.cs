@@ -26,7 +26,6 @@ public class SkinGridElement : MonoBehaviour
         InventoryManager.Instance.OnSelectSkin += OnOneSkinSelected;
         PlayerData.Instance.OnCurrentSkinUsedChange += OnOneSkinUsed;
     }
-
     private void OnDestroy()
     {
         InventoryManager.Instance.OnSelectSkin -= OnOneSkinSelected;
@@ -37,7 +36,6 @@ public class SkinGridElement : MonoBehaviour
         CurrentData = data;
         UpdateState();
     }
-
     private void UpdateState()
     {
         SkinId.SetText(CurrentData.ID.ToString());

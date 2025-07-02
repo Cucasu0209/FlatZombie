@@ -139,6 +139,9 @@ public class PlayerData : MonoBehaviour
     public Action OnCurrentWeaponUsedChange;
     public Action<int> OnUnlockNewWeapon;
 
-
+    public bool HaveWeapon(int weaponIndex)
+    {
+        return WeaponsOwned.Contains(weaponIndex);
+    }
     #endregion
 }
