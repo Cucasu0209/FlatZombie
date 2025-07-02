@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Weapon8_Melee
   m_EditorClassIdentifier: 
   ID: 8
-  Name: 
+  Name: Thompson
+  Price: 999
   Type: 0
+  Tag: 1
