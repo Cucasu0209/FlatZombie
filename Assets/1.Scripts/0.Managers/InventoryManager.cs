@@ -45,23 +45,20 @@ public class InventoryManager : MonoBehaviour
     #endregion
 
     #region Skin Data
-
-
-    public List<SkinData> SkinDatas { get; private set; }
+    public Dictionary<int, SkinData> SkinDatas { get; private set; }
     public int CurrentSkinIdSelected { get; private set; }
     public Action OnSelectSkin;
-
     private void UpdateSkinList()
     {
         if (ShopData is null) LoadShopData();
         if (ShopData != null)
         {
-            if (SkinDatas is null) SkinDatas = new List<SkinData>();
-            else WeaponDatas.Clear();
+            if (SkinDatas is null) SkinDatas = new Dictionary<int, SkinData>();
+            else SkinDatas.Clear();
 
             for (int i = 0; i < ShopData.Skins.Count; i++)
             {
-                SkinDatas.Add(ShopData.Skins[i]);
+                SkinDatas.Add(ShopData.Skins[i].ID, ShopData.Skins[i]);
             }
         }
     }
@@ -71,6 +68,10 @@ public class InventoryManager : MonoBehaviour
         {
             CurrentSkinIdSelected = skinId;
             OnSelectSkin?.Invoke();
+            if (PlayerData.Instance.HaveSkin(CurrentSkinIdSelected))
+            {
+                PlayerData.Instance.ChangeSkin(CurrentSkinIdSelected);
+            }
         }
     }
     public void RequestBuySkin(int skinId)
@@ -102,37 +103,54 @@ public class InventoryManager : MonoBehaviour
     }
     public SkinData GetSkinDataById(int id)
     {
-        for (int i = 0; i < SkinDatas.Count; i++)
-        {
-            if (SkinDatas[i].ID == id) return SkinDatas[i];
-        }
+        if (SkinDatas.ContainsKey(id)) return SkinDatas[id];
         return null;
     }
     #endregion
 
     #region Weapon Data
-    public Dictionary<WeaponType, List<WeaponData>> WeaponDatas { get; private set; }
+    public Dictionary<WeaponType, List<WeaponData>> WeaponDatas_Type { get; private set; }
+    public Dictionary<int, WeaponData> WeaponDatas_All { get; private set; }
+    public int CurrentWeaponIdSelected { get; private set; }
+    public Action OnSelectWeapon;
     private void UpdateWeaponList()
     {
         if (ShopData is null) LoadShopData();
         if (ShopData != null)
         {
-            if (WeaponDatas is null) WeaponDatas = new Dictionary<WeaponType, List<WeaponData>>();
-            else WeaponDatas.Clear();
+            if (WeaponDatas_Type is null) WeaponDatas_Type = new Dictionary<WeaponType, List<WeaponData>>();
+            else WeaponDatas_Type.Clear();
+
+            if (WeaponDatas_All is null) WeaponDatas_All = new Dictionary<int, WeaponData>();
+            else WeaponDatas_All.Clear();
 
             for (int i = 0; i < ShopData.Weapons.Count; i++)
             {
-                if (WeaponDatas.ContainsKey(ShopData.Weapons[i].Type))
+                if (WeaponDatas_Type.ContainsKey(ShopData.Weapons[i].Type))
                 {
-                    WeaponDatas[ShopData.Weapons[i].Type].Add(ShopData.Weapons[i]);
+                    WeaponDatas_Type[ShopData.Weapons[i].Type].Add(ShopData.Weapons[i]);
                 }
                 else
                 {
-                    WeaponDatas.Add(ShopData.Weapons[i].Type, new List<WeaponData>() { ShopData.Weapons[i] });
+                    WeaponDatas_Type.Add(ShopData.Weapons[i].Type, new List<WeaponData>() { ShopData.Weapons[i] });
                 }
+
+                WeaponDatas_All.Add(ShopData.Weapons[i].ID, ShopData.Weapons[i]);
             }
         }
 
+    }
+    public void SelectWeapon(int weaponId)
+    {
+        if (weaponId != CurrentWeaponIdSelected)
+        {
+            CurrentWeaponIdSelected = weaponId;
+            OnSelectWeapon?.Invoke();
+            if (PlayerData.Instance.HaveSkin(CurrentSkinIdSelected))
+            {
+                PlayerData.Instance.ChangeSkin(CurrentSkinIdSelected);
+            }
+        }
     }
     #endregion
 }

@@ -23,7 +23,7 @@ public class CheatPopup : MonoBehaviour
 
     private void CheckAndOpen()
     {
-        if (CheatManager.Instance.IsPasswordCorrect())
+        if (CheatManager.Instance.IsAuthenticationPass())
         {
             OpenPopup();
         }

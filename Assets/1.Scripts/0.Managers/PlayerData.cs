@@ -54,6 +54,14 @@ public class PlayerData : MonoBehaviour
     {
         CurrentMoney = PlayerPrefs.GetInt(GameConfig.MONEY_AMOUNT_KEY, 0);
     }
+    public void CheatMoney(int target)
+    {
+        if (CheatManager.Instance.IsAuthenticationPass())
+        {
+            CurrentMoney = target;
+            OnMoneyChange?.Invoke();
+        }
+    }
     #endregion
 
     #region Skin
@@ -101,7 +109,6 @@ public class PlayerData : MonoBehaviour
             UnlockSkin(ids[i]);
         }
     }
-
     public void UnlockSkin(int skinIndex)
     {
         if (SkinsOwned.Contains(skinIndex) == false)
@@ -126,5 +133,12 @@ public class PlayerData : MonoBehaviour
     }
     #endregion
 
+    #region Weapon
+    public List<int> CurrentWeaponsIdUsed { get; private set; }
+    public List<int> WeaponsOwned { get; private set; }
+    public Action OnCurrentWeaponUsedChange;
+    public Action<int> OnUnlockNewWeapon;
 
+
+    #endregion
 }

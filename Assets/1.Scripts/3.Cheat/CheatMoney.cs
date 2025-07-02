@@ -12,10 +12,24 @@ public class CheatMoney : MonoBehaviour
     private void Start()
     {
         ApplyButton.onClick.AddListener(OnApplyClick);
+        UpdateMoney();
+        PlayerData.Instance.OnMoneyChange += UpdateMoney;
     }
+    private void OnDestroy()
+    {
+        PlayerData.Instance.OnMoneyChange -= UpdateMoney;
 
+    }
+    private void UpdateMoney()
+    {
+        MoneyField.text = PlayerData.Instance.CurrentMoney.ToString();
+    }
     private void OnApplyClick()
     {
-
+        if (int.TryParse(MoneyField.text, out int targetMoney))
+        {
+            PlayerData.Instance.CheatMoney(targetMoney);
+        }
+        UpdateMoney();
     }
 }

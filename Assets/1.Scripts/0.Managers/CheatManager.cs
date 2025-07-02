@@ -102,9 +102,12 @@ public class CheatManager : MonoBehaviour
         PlayerPrefs.SetString(GameConfig.CHEAT_PASSWORD_KEY, CurrentPassword);
 
     }
-    public bool IsPasswordCorrect(string pw = "")
+    public bool IsPasswordCorrect(string pw)
     {
-        if (pw == "") return CurrentPassword == GameConfig.CHEAT_CORRECT_PASSWORD;
         return pw == GameConfig.CHEAT_CORRECT_PASSWORD;
+    }
+    public bool IsAuthenticationPass()
+    {
+        return CurrentPassword == GameConfig.CHEAT_CORRECT_PASSWORD;
     }
 }
