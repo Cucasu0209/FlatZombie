@@ -28,9 +28,13 @@ public class PlayerData : MonoBehaviour
         SaveMoney();
         OnMoneyChange?.Invoke();
     }
+    public bool EnoughMoney(int price)
+    {
+        return CurrentMoney >= price;
+    }
     public void BuyItem(int price, Action BuyComplete = null, Action BuyFail = null)
     {
-        if (CurrentMoney >= price)
+        if (EnoughMoney(price))
         {
             CurrentMoney -= price;
             SaveMoney();

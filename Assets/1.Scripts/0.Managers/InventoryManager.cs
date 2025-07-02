@@ -75,7 +75,21 @@ public class InventoryManager : MonoBehaviour
     }
     public void RequestBuySkin(int skinId)
     {
-
+        SkinData skin = GetSkinDataById(skinId);
+        if (skin != null)
+        {
+            PlayerData.Instance.BuyItem(skin.Price,
+            () =>
+            {
+                SelectSkin(skinId);
+                PlayerData.Instance.UnlockSkin(skinId);
+                PlayerData.Instance.ChangeSkin(skinId);
+            },
+            () =>
+            {
+                Debug.LogError("NOT ENOUGH MONEY");
+            });
+        }
     }
     public List<int> GetDefaultSkins()
     {
@@ -85,6 +99,14 @@ public class InventoryManager : MonoBehaviour
             if (ShopData.Skins[i].Tag == ItemTag.Default) result.Add(ShopData.Skins[i].ID);
         }
         return result;
+    }
+    public SkinData GetSkinDataById(int id)
+    {
+        for (int i = 0; i < SkinDatas.Count; i++)
+        {
+            if (SkinDatas[i].ID == id) return SkinDatas[i];
+        }
+        return null;
     }
     #endregion
 
