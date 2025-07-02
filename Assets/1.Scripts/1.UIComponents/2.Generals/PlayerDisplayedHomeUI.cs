@@ -26,6 +26,6 @@ public class PlayerDisplayedHomeUI : MonoBehaviour
     }
     private void UpdateWeapon()
     {
-        SkinIndex.SetText($"Skin {InventoryManager.Instance.GetSkinDataById(PlayerData.Instance.CurrentSkinIdUsed).Name}");
+        SkinIndex.SetText($"Weapon {InventoryManager.Instance.GetSkinDataById(PlayerData.Instance.CurrentSkinIdUsed).Name}");
     }
 }
