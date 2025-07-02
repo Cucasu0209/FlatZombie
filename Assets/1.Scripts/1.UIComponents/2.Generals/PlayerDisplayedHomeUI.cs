@@ -9,16 +9,16 @@ public class PlayerDisplayedHomeUI : MonoBehaviour
     private void Start()
     {
         UpdateSkin();
-        PlayerData.Instance.OnCurrentSkinChange += UpdateSkin;
+        PlayerData.Instance.OnCurrentSkinUsedChange += UpdateSkin;
     }
     private void OnDestroy()
     {
-        PlayerData.Instance.OnCurrentSkinChange -= UpdateSkin;
+        PlayerData.Instance.OnCurrentSkinUsedChange -= UpdateSkin;
 
     }
 
     private void UpdateSkin()
     {
-        SkinIndex.SetText($"Skin {PlayerData.Instance.CurrentSkin}");
+        SkinIndex.SetText($"Skin {PlayerData.Instance.CurrentSkinIdUsed}");
     }
 }

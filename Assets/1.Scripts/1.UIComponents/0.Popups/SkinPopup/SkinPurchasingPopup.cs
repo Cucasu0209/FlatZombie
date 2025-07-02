@@ -10,6 +10,9 @@ public class SkinPurchasingPopup : MonoBehaviour
     [SerializeField] private Button CloseButton;
     [SerializeField] private RectTransform PopupContent;
 
+    [Header("Content")]
+    [SerializeField] private SkinGrid Grid;
+
     private void Start()
     {
         SetupStart();
@@ -38,6 +41,6 @@ public class SkinPurchasingPopup : MonoBehaviour
     }
     private void UpdateState()
     {
-
+        Grid.UpdateSkinList();
     }
 }

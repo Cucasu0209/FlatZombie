@@ -13,6 +13,10 @@ public class PlayerData : MonoBehaviour
         LoadSkin();
         LoadSkinsOwned();
     }
+    private void Start()
+    {
+        UnlockDefaultSkin();
+    }
 
     #region Money
     public int CurrentMoney { get; private set; }
@@ -49,17 +53,17 @@ public class PlayerData : MonoBehaviour
     #endregion
 
     #region Skin
-    public int CurrentSkin { get; private set; }
+    public int CurrentSkinIdUsed { get; private set; }
     public List<int> SkinsOwned { get; private set; }
-    public Action OnCurrentSkinChange;
+    public Action OnCurrentSkinUsedChange;
     public Action<int> OnUnlockNewSkin;
     private void SaveSkin()
     {
-        PlayerPrefs.SetInt(GameConfig.CURRENT_SKIN_KEY, CurrentSkin);
+        PlayerPrefs.SetInt(GameConfig.CURRENT_SKIN_KEY, CurrentSkinIdUsed);
     }
     private void LoadSkin()
     {
-        CurrentSkin = PlayerPrefs.GetInt(GameConfig.CURRENT_SKIN_KEY, 0);
+        CurrentSkinIdUsed = PlayerPrefs.GetInt(GameConfig.CURRENT_SKIN_KEY, 0);
     }
     private void SaveSkinsOwned()
     {
@@ -85,6 +89,15 @@ public class PlayerData : MonoBehaviour
         }
 
     }
+    private void UnlockDefaultSkin()
+    {
+        List<int> ids = InventoryManager.Instance.GetDefaultSkins();
+        for (int i = 0; i < ids.Count; i++)
+        {
+            UnlockSkin(ids[i]);
+        }
+    }
+
     public void UnlockSkin(int skinIndex)
     {
         if (SkinsOwned.Contains(skinIndex) == false)
@@ -98,10 +111,14 @@ public class PlayerData : MonoBehaviour
     {
         if (SkinsOwned.Contains(skinIndex))
         {
-            CurrentSkin = skinIndex;
+            CurrentSkinIdUsed = skinIndex;
             SaveSkin();
-            OnCurrentSkinChange?.Invoke();
+            OnCurrentSkinUsedChange?.Invoke();
         }
+    }
+    public bool HaveSkin(int skinIndex)
+    {
+        return SkinsOwned.Contains(skinIndex);
     }
     #endregion
 

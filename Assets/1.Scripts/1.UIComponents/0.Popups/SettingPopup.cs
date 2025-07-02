@@ -34,7 +34,7 @@ public class SettingPopup : MonoBehaviour
     }
     private void SetupStart()
     {
-        PopupContent.anchoredPosition = Vector2.zero;
+        Dark.rectTransform.anchoredPosition = Vector2.zero;
         Dark.color = new Color(Dark.color.r, Dark.color.g, Dark.color.b, 0.8f);
         Dark.gameObject.SetActive(false);
         CloseButton.gameObject.SetActive(false);
