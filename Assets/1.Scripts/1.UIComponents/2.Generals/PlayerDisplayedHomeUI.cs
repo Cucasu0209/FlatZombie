@@ -10,6 +10,7 @@ public class PlayerDisplayedHomeUI : MonoBehaviour
     private void Start()
     {
         UpdateSkin();
+        UpdateWeapon();
         PlayerData.Instance.OnCurrentSkinUsedChange += UpdateSkin;
         PlayerData.Instance.OnCurrentWeaponUsedChange += UpdateWeapon;
     }
@@ -22,10 +23,15 @@ public class PlayerDisplayedHomeUI : MonoBehaviour
 
     private void UpdateSkin()
     {
-        SkinIndex.SetText($"Skin {InventoryManager.Instance.GetSkinDataById(PlayerData.Instance.CurrentSkinIdUsed).Name}");
+        SkinIndex.SetText($"Skin\n {InventoryManager.Instance.GetSkinDataById(PlayerData.Instance.CurrentSkinIdUsed).Name}");
     }
     private void UpdateWeapon()
     {
-        SkinIndex.SetText($"Weapon {InventoryManager.Instance.GetSkinDataById(PlayerData.Instance.CurrentSkinIdUsed).Name}");
+        string weaponString = "";
+        for (int i = 0; i < PlayerData.Instance.CurrentWeaponsIdUsed.Count; i++)
+        {
+            weaponString += "\n- " + InventoryManager.Instance.GetWeaponDataById(PlayerData.Instance.CurrentWeaponsIdUsed[i]).Name;
+        }
+        WeaponIndex.SetText("Weapon: " + weaponString);
     }
 }

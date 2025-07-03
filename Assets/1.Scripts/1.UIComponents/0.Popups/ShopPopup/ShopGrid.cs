@@ -10,11 +10,14 @@ public class ShopGrid : MonoBehaviour
     [SerializeField] private RectTransform Content;
     private List<ShopGridElement> CurrentDisplayedElements;
 
-    [Header("Category tittle")]
-    [SerializeField] private Button MeleeCat;
-    [SerializeField] private Button OneHGCat;
-    [SerializeField] private Button TwoHGCat;
-
+    private void Start()
+    {
+        InventoryManager.Instance.OnChangeCategory += UpdateWeaponList;
+    }
+    private void OnDestroy()
+    {
+        InventoryManager.Instance.OnChangeCategory -= UpdateWeaponList;
+    }
     public void UpdateWeaponList()
     {
         //Clear Cache
@@ -30,12 +33,12 @@ public class ShopGrid : MonoBehaviour
         }
 
         //Spawn New
-        for (int i = 0; i < InventoryManager.Instance.ShopData.Skins.Count; i++)
+        for (int i = 0; i < InventoryManager.Instance.WeaponDatas_Type[InventoryManager.Instance.CurrentCategory].Count; i++)
         {
             ShopGridElement el = LeanPool.Spawn(GridElementPrefab, Content);
             el.transform.localScale = Vector3.one;
             CurrentDisplayedElements.Add(el);
-            el.SetData(InventoryManager.Instance.ShopData.Weapons[i]);
+            el.SetData(InventoryManager.Instance.WeaponDatas_Type[InventoryManager.Instance.CurrentCategory][i]);
         }
     }
 }

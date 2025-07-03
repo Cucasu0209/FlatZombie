@@ -10,12 +10,18 @@ public class PlayerData : MonoBehaviour
     {
         Instance = this;
         LoadMoney();
+
         LoadSkin();
         LoadSkinsOwned();
+        UnlockDefaultSkin();
+
+        LoadWeapon();
+        LoadWeaponsOwned();
+        UnlockDefaultWeapon();
+
     }
     private void Start()
     {
-        UnlockDefaultSkin();
     }
 
     #region Money
@@ -59,6 +65,7 @@ public class PlayerData : MonoBehaviour
         if (CheatManager.Instance.IsAuthenticationPass())
         {
             CurrentMoney = target;
+            SaveMoney();
             OnMoneyChange?.Invoke();
         }
     }
@@ -75,7 +82,7 @@ public class PlayerData : MonoBehaviour
     }
     private void LoadSkin()
     {
-        CurrentSkinIdUsed = PlayerPrefs.GetInt(GameConfig.CURRENT_SKIN_KEY, 0);
+        CurrentSkinIdUsed = PlayerPrefs.GetInt(GameConfig.CURRENT_SKIN_KEY, InventoryManager.Instance.GetDefaultSkins()[0]);
     }
     private void SaveSkinsOwned()
     {
@@ -90,7 +97,7 @@ public class PlayerData : MonoBehaviour
     {
         if (SkinsOwned is null) SkinsOwned = new List<int>();
         else SkinsOwned.Clear();
-        string data = PlayerPrefs.GetString(GameConfig.SKIN_OWNED_KEY, "0,");
+        string data = PlayerPrefs.GetString(GameConfig.SKIN_OWNED_KEY, "");
         string[] ids = data.Split(',');
         for (int i = 0; i < ids.Length; i++)
         {
@@ -138,10 +145,89 @@ public class PlayerData : MonoBehaviour
     public List<int> WeaponsOwned { get; private set; }
     public Action OnCurrentWeaponUsedChange;
     public Action<int> OnUnlockNewWeapon;
+    private void SaveWeapon()
+    {
+        for (int i = 0; i < Mathf.Min(GameConfig.WEAPON_LIMIT, CurrentWeaponsIdUsed.Count); i++)
+            PlayerPrefs.SetInt(GameConfig.CURRENT_SKIN_KEY + i, CurrentWeaponsIdUsed[i]);
+    }
+    private void LoadWeapon()
+    {
+        if (CurrentWeaponsIdUsed is null) CurrentWeaponsIdUsed = new List<int>();
+        else CurrentWeaponsIdUsed.Clear();
+        List<int> defaultIds = InventoryManager.Instance.GetDefaultWeapons();
 
+        for (int i = 0; i < GameConfig.WEAPON_LIMIT; i++)
+            CurrentWeaponsIdUsed.Add(PlayerPrefs.GetInt(GameConfig.CURRENT_SKIN_KEY, (i <= defaultIds.Count - 1) ? defaultIds[i] : -1));
+    }
+    private void SaveWeaponsOwned()
+    {
+        string data = "";
+        for (int i = 0; i < WeaponsOwned.Count; i++)
+        {
+            data += WeaponsOwned[i].ToString() + ",";
+        }
+        PlayerPrefs.SetString(GameConfig.WEAPON_OWNED_KEY, data);
+    }
+    private void LoadWeaponsOwned()
+    {
+        if (WeaponsOwned is null) WeaponsOwned = new List<int>();
+        else WeaponsOwned.Clear();
+
+
+        string data = PlayerPrefs.GetString(GameConfig.WEAPON_OWNED_KEY, "");
+        string[] ids = data.Split(',');
+        for (int i = 0; i < ids.Length; i++)
+        {
+            if (int.TryParse(ids[i], out int result))
+            {
+                WeaponsOwned.Add(result);
+            }
+        }
+
+    }
     public bool HaveWeapon(int weaponIndex)
     {
         return WeaponsOwned.Contains(weaponIndex);
     }
+    public void UnlockWeapon(int weaponIndex)
+    {
+        if (WeaponsOwned.Contains(weaponIndex) == false)
+        {
+            WeaponsOwned.Add(weaponIndex);
+            SaveWeaponsOwned();
+            OnUnlockNewWeapon?.Invoke(weaponIndex);
+        }
+    }
+    private void UnlockDefaultWeapon()
+    {
+        List<int> ids = InventoryManager.Instance.GetDefaultWeapons();
+        for (int i = 0; i < ids.Count; i++)
+        {
+            UnlockWeapon(ids[i]);
+        }
+    }
+    public void ChangeWeapon(int weaponId, int slotIndex)
+    {
+        if (WeaponsOwned.Contains(weaponId))
+        {
+
+            bool isSwap = false;
+            for (int i = 0; i < CurrentWeaponsIdUsed.Count; i++)
+            {
+                if (CurrentWeaponsIdUsed[i] == weaponId)
+                {
+                    isSwap = true;
+                    CurrentWeaponsIdUsed[i] = CurrentWeaponsIdUsed[slotIndex];
+                    CurrentWeaponsIdUsed[slotIndex] = weaponId;
+                }
+            }
+            if (isSwap == false)
+                CurrentWeaponsIdUsed[slotIndex] = weaponId;
+
+            SaveWeapon();
+            OnCurrentWeaponUsedChange?.Invoke();
+        }
+    }
+
     #endregion
 }

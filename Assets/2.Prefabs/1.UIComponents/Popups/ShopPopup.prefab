@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 6978834664228927659}
   - component: {fileID: 3839771335299782970}
   - component: {fileID: 6150539993067563241}
+  - component: {fileID: 7213702763926610104}
   m_Layer: 5
   m_Name: Melee
   m_TagString: Untagged
@@ -164,7 +165,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 70}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6978834664228927659
 CanvasRenderer:
@@ -248,6 +249,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7213702763926610104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263169265087698825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96582be33963e54f8ddff22934c974a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChangeCatButton: {fileID: 6150539993067563241}
+  WeaponType: 0
+  ActiveBG: {fileID: 3914407318315809501}
 --- !u!1 &329207233863208038
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,10 +1089,10 @@ RectTransform:
   - {fileID: 1691743419065789972}
   m_Father: {fileID: 3256284061074432835}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -93.58301, y: -156.27}
-  m_SizeDelta: {x: 187.16, y: 312.55}
+  m_AnchoredPosition: {x: -93.58301, y: -0.000030517578}
+  m_SizeDelta: {x: 187.16, y: 0.000030517578}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1176151551042060857
 MonoBehaviour:
@@ -1098,9 +1114,9 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_Spacing: 4.05
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 0
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -1526,6 +1542,7 @@ GameObject:
   - component: {fileID: 7874887815064833630}
   - component: {fileID: 3991607186332260678}
   - component: {fileID: 5481813370956740821}
+  - component: {fileID: 9195312312967037753}
   m_Layer: 5
   m_Name: One-hand Gun
   m_TagString: Untagged
@@ -1552,7 +1569,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 70}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7874887815064833630
 CanvasRenderer:
@@ -1636,6 +1653,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &9195312312967037753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4515383230627951701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96582be33963e54f8ddff22934c974a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChangeCatButton: {fileID: 5481813370956740821}
+  WeaponType: 1
+  ActiveBG: {fileID: 4268270385597139290}
 --- !u!1 &4641798093116991435
 GameObject:
   m_ObjectHideFlags: 0
@@ -2130,9 +2162,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridElementPrefab: {fileID: 286479476985084090, guid: 91b5c626bbf181f4786268f103c41dac, type: 3}
   Content: {fileID: 3809456220590072843}
-  MeleeCat: {fileID: 6150539993067563241}
-  OneHGCat: {fileID: 5481813370956740821}
-  TwoHGCat: {fileID: 5045307184430026755}
 --- !u!1 &6912347590434611058
 GameObject:
   m_ObjectHideFlags: 0
@@ -2197,6 +2226,7 @@ GameObject:
   - component: {fileID: 1518800017015204261}
   - component: {fileID: 5624450880921678429}
   - component: {fileID: 5045307184430026755}
+  - component: {fileID: 7563621151327899739}
   m_Layer: 5
   m_Name: Two-hand Gun
   m_TagString: Untagged
@@ -2223,7 +2253,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 70}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1518800017015204261
 CanvasRenderer:
@@ -2307,6 +2337,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7563621151327899739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7173059969308173872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96582be33963e54f8ddff22934c974a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChangeCatButton: {fileID: 5045307184430026755}
+  WeaponType: 2
+  ActiveBG: {fileID: 6648711466747876250}
 --- !u!1 &7985888435277940262
 GameObject:
   m_ObjectHideFlags: 0

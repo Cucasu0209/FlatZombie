@@ -14,6 +14,6 @@ public class WeaponData : ScriptableObject
 public enum WeaponType
 {
     Melee,
-    Two_Hand_Gun,
     One_Hand_Gun,
+    Two_Hand_Gun,
 }

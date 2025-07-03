@@ -109,6 +109,8 @@ public class InventoryManager : MonoBehaviour
     #endregion
 
     #region Weapon Data
+    public WeaponType CurrentCategory { get; private set; } = WeaponType.Melee;
+    public Action OnChangeCategory;
     public Dictionary<WeaponType, List<WeaponData>> WeaponDatas_Type { get; private set; }
     public Dictionary<int, WeaponData> WeaponDatas_All { get; private set; }
     public int CurrentWeaponIdSelected { get; private set; }
@@ -142,15 +144,63 @@ public class InventoryManager : MonoBehaviour
     }
     public void SelectWeapon(int weaponId)
     {
-        if (weaponId != CurrentWeaponIdSelected)
+        CurrentWeaponIdSelected = weaponId;
+        OnSelectWeapon?.Invoke();
+        if (PlayerData.Instance.HaveWeapon(CurrentWeaponIdSelected))
         {
-            CurrentWeaponIdSelected = weaponId;
-            OnSelectWeapon?.Invoke();
-            if (PlayerData.Instance.HaveSkin(CurrentSkinIdSelected))
+            UIGlobalManager.Instance.OnOpenSelectWeaponSlotPopup((slotIndex) =>
             {
-                PlayerData.Instance.ChangeSkin(CurrentSkinIdSelected);
-            }
+                PlayerData.Instance.ChangeWeapon(CurrentWeaponIdSelected, slotIndex);
+            },
+            () =>
+            {
+                //cancel
+            });
         }
+    }
+    public void ChangeCategory(WeaponType category)
+    {
+        CurrentCategory = category;
+        OnChangeCategory?.Invoke();
+    }
+    public void RequestBuyWeapon(int weaponId)
+    {
+        WeaponData weapon = GetWeaponDataById(weaponId);
+        if (weapon != null)
+        {
+            PlayerData.Instance.BuyItem(weapon.Price,
+            () =>
+            {
+                SelectWeapon(weaponId);
+                PlayerData.Instance.UnlockWeapon(weaponId);
+                UIGlobalManager.Instance.OnOpenSelectWeaponSlotPopup((slotIndex) =>
+                {
+                    PlayerData.Instance.ChangeWeapon(weaponId, slotIndex);
+                },
+                () =>
+                {
+
+                });
+            },
+            () =>
+            {
+                Debug.LogError("NOT ENOUGH MONEY");
+            });
+        }
+    }
+    public WeaponData GetWeaponDataById(int id)
+    {
+        if (WeaponDatas_All.ContainsKey(id)) return WeaponDatas_All[id];
+        return null;
+    }
+    public List<int> GetDefaultWeapons()
+    {
+        List<int> result = new List<int>();
+        for (int i = 0; i < ShopData.Weapons.Count; i++)
+        {
+            if (ShopData.Weapons[i].Tag == ItemTag.Default) result.Add(ShopData.Weapons[i].ID);
+        }
+        return result;
     }
     #endregion
 }
