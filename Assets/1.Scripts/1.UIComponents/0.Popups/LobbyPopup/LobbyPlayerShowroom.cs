@@ -24,9 +24,13 @@ public class LobbyPlayerShowroom : MonoBehaviour
     public void UpdateState()
     {
         string weaponData = "Weapon:";
+        WeaponData wp;
         for (int i = 0; i < PlayerData.Instance.CurrentWeaponsIdUsed.Count; i++)
         {
-            weaponData += $"\n -{InventoryManager.Instance.GetWeaponDataById(PlayerData.Instance.CurrentWeaponsIdUsed[i]).Name}";
+            wp = InventoryManager.Instance.GetWeaponDataById(PlayerData.Instance.CurrentWeaponsIdUsed[i]);
+            if (wp != null)
+                weaponData += $"\n -{wp.Name}";
+            else weaponData += $"\n -Empty slot";
         }
 
         PlayerInfor.SetText($"Skin: \n{InventoryManager.Instance.GetSkinDataById(PlayerData.Instance.CurrentSkinIdUsed).Name}\n" + weaponData);

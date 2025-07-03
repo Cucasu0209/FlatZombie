@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 4
   Name: Machette
-  Price: 1222
   Type: 0
-  Tag: 1
+  Tag: 0
+  Damage: 80
+  HeadShotDamage: 140
+  FireRate: 90
+  Magazine: -1
+  Price: 0

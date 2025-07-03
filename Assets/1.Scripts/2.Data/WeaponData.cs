@@ -12,8 +12,9 @@ public class WeaponData : ScriptableObject
 
     [Header("Detail")]
     public float Damage;
+    public float HeadShotDamage;
     public float FireRate;
-    public float Magazine;
+    public int Magazine;
     public int Price;
 
 }

@@ -18,6 +18,7 @@ public class UIGlobalManager : MonoBehaviour
     public Action OnOpenSettingPopup;
     public Action OnOpenSkinPopup;
     public Action OnOpenShopPopup;
+    public Action<int> OnShowWeaponInfoPopup; // WeaponID
     public Action<Action<int>, Action> OnOpenSelectWeaponSlotPopup; // <Action Choose slot Index, Action Cancel>
 
     public Action OnGoToHome;

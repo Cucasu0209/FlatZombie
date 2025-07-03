@@ -21,6 +21,10 @@ public class GameConfig
     //Cheat
     public const string CHEAT_CORRECT_PASSWORD = "apusapus";
 
-    //
+    //Weapon config
     public const int WEAPON_LIMIT = 2;
+    public const float WEAPON_DAMAGE_MAX = 100;
+    public const float WEAPON_HEADSHOT_DAMAGE_MAX = 150;
+    public const float WEAPON_FIRERATE_MAX = 1000;
+    public const int WEAPON_MAGAZINE_MAX = 50;
 }

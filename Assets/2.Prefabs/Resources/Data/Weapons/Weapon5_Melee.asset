@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 5
   Name: Bat
-  Price: 3600
   Type: 0
-  Tag: 1
+  Tag: 3
+  Damage: 80
+  HeadShotDamage: 130
+  FireRate: 75
+  Magazine: -1
+  Price: 0

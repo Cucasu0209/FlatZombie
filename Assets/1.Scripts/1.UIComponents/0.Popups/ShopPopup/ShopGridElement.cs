@@ -26,12 +26,14 @@ public class ShopGridElement : MonoBehaviour
         SelectButton.onClick.AddListener(OnSelectButtonClick);
         InventoryManager.Instance.OnSelectWeapon += OnOneWeaponSelected;
         PlayerData.Instance.OnCurrentWeaponUsedChange += OnOneWeaponUsed;
+        PlayerData.Instance.OnUnlockNewWeapon += UpdateState;
 
     }
     private void OnDestroy()
     {
         InventoryManager.Instance.OnSelectWeapon -= OnOneWeaponSelected;
         PlayerData.Instance.OnCurrentWeaponUsedChange -= OnOneWeaponUsed;
+        PlayerData.Instance.OnUnlockNewWeapon -= UpdateState;
     }
     public void SetData(WeaponData data)
     {
@@ -55,6 +57,7 @@ public class ShopGridElement : MonoBehaviour
     private void OnSelectButtonClick()
     {
         InventoryManager.Instance.SelectWeapon(CurrentData.ID);
+        UIGlobalManager.Instance.OnShowWeaponInfoPopup?.Invoke(CurrentData.ID);
     }
     private void OnBuyButtonClick()
     {

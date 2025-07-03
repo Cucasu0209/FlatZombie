@@ -146,17 +146,6 @@ public class InventoryManager : MonoBehaviour
     {
         CurrentWeaponIdSelected = weaponId;
         OnSelectWeapon?.Invoke();
-        if (PlayerData.Instance.HaveWeapon(CurrentWeaponIdSelected))
-        {
-            UIGlobalManager.Instance.OnOpenSelectWeaponSlotPopup((slotIndex) =>
-            {
-                PlayerData.Instance.ChangeWeapon(CurrentWeaponIdSelected, slotIndex);
-            },
-            () =>
-            {
-                //cancel
-            });
-        }
     }
     public void ChangeCategory(WeaponType category)
     {

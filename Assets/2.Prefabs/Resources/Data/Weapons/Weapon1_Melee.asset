@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 1
   Name: Sword
-  Price: 1990
   Type: 0
   Tag: 1
+  Damage: 150
+  HeadShotDamage: 300
+  FireRate: 45
+  Magazine: -1
+  Price: 1800

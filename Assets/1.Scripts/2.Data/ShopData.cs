@@ -14,4 +14,5 @@ public enum ItemTag
     Default,// Free when start game
     BuyInShop,// Must buy to have
     Attendance,// Attendance to have
+    WatchAds,// Watch Ads reward ro collect
 }

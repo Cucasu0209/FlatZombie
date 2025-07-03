@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 21
   Name: Colt 1911
-  Price: 6352
   Type: 1
   Tag: 1
+  Damage: 40
+  HeadShotDamage: 60
+  FireRate: 400
+  Magazine: 7
+  Price: 700

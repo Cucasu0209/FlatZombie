@@ -44,9 +44,14 @@ public class PlayerDisplayedHomeUI : MonoBehaviour
     private void UpdateWeapon()
     {
         string weaponString = "";
+        WeaponData wp;
+
         for (int i = 0; i < PlayerData.Instance.CurrentWeaponsIdUsed.Count; i++)
         {
-            weaponString += "\n- " + InventoryManager.Instance.GetWeaponDataById(PlayerData.Instance.CurrentWeaponsIdUsed[i]).Name;
+            wp = InventoryManager.Instance.GetWeaponDataById(PlayerData.Instance.CurrentWeaponsIdUsed[i]);
+            if (wp != null)
+                weaponString += $"\n -{wp.Name}";
+            else weaponString += $"\n -Empty slot";
         }
         WeaponIndex.SetText("Weapon: " + weaponString);
     }

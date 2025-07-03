@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Weapon25_OneHG
   m_EditorClassIdentifier: 
   ID: 25
-  Name: LM-90
-  Price: 6352
+  Name: Mauser C96
   Type: 1
   Tag: 1
+  Damage: 36
+  HeadShotDamage: 54
+  FireRate: 500
+  Magazine: 10
+  Price: 850

@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Weapon18_OneHG
   m_EditorClassIdentifier: 
   ID: 18
-  Name: 'Revolve '
-  Price: 9600
+  Name: FNP-9
   Type: 1
-  Tag: 1
+  Tag: 3
+  Damage: 30
+  HeadShotDamage: 45
+  FireRate: 450
+  Magazine: 16
+  Price: 0

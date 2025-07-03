@@ -170,7 +170,7 @@ public class PlayerData : MonoBehaviour
     public List<int> CurrentWeaponsIdUsed { get; private set; }
     public List<int> WeaponsOwned { get; private set; }
     public Action OnCurrentWeaponUsedChange;
-    public Action<int> OnUnlockNewWeapon;
+    public Action OnUnlockNewWeapon;
     private void SaveWeapon()
     {
         for (int i = 0; i < GameConfig.WEAPON_LIMIT; i++)
@@ -221,7 +221,7 @@ public class PlayerData : MonoBehaviour
         {
             WeaponsOwned.Add(weaponIndex);
             SaveWeaponsOwned();
-            OnUnlockNewWeapon?.Invoke(weaponIndex);
+            OnUnlockNewWeapon?.Invoke();
         }
     }
     private void UnlockDefaultWeapon()
@@ -254,6 +254,22 @@ public class PlayerData : MonoBehaviour
             OnCurrentWeaponUsedChange?.Invoke();
         }
     }
+    public bool IsUsingWeapon(int weaponId)
+    {
+        return CurrentWeaponsIdUsed.Contains(weaponId);
+    }
+    public void EliminateWeapon(int weaponId)
+    {
+        for (int i = 0; i < CurrentWeaponsIdUsed.Count; i++)
+        {
+            if (CurrentWeaponsIdUsed[i] == weaponId)
+            {
+                CurrentWeaponsIdUsed[i] = -1;
+                OnCurrentWeaponUsedChange?.Invoke();
+                return;
 
+            }
+        }
+    }
     #endregion
 }

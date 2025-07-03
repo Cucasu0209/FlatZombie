@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 6
   Name: Crowbar
-  Price: 1900
   Type: 0
-  Tag: 0
+  Tag: 3
+  Damage: 70
+  HeadShotDamage: 110
+  FireRate: 100
+  Magazine: -1
+  Price: 0

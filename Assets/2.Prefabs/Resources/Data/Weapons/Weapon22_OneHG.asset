@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 22
   Name: CZ-P10-C
-  Price: 6352
   Type: 1
-  Tag: 1
+  Tag: 3
+  Damage: 32
+  HeadShotDamage: 48
+  FireRate: 500
+  Magazine: 15
+  Price: 0

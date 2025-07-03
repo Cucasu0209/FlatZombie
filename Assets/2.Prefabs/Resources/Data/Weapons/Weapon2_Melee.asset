@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 2
   Name: Shove
-  Price: 900
   Type: 0
   Tag: 1
+  Damage: 120
+  HeadShotDamage: 180
+  FireRate: 40
+  Magazine: -1
+  Price: 750
