@@ -11,10 +11,13 @@ public class MapPopup : MonoBehaviour
     {
         SetupStart();
         UIGlobalManager.Instance.OnGoToMap += OpenPopup;
+        UIGlobalManager.Instance.OnExitMap += ClosePopup;
+
     }
     private void OnDestroy()
     {
         UIGlobalManager.Instance.OnGoToMap -= OpenPopup;
+        UIGlobalManager.Instance.OnExitMap -= ClosePopup;
 
     }
     private void SetupStart()

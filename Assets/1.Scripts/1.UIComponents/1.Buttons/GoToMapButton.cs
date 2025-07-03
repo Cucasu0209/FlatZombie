@@ -12,6 +12,6 @@ public class GoToMapButton : MonoBehaviour
     }
     private void OnGotoMapBtnClick()
     {
-        UIGlobalManager.Instance.OnGoToMap?.Invoke();
+        UIGlobalManager.Instance.GoToMap();
     }
 }

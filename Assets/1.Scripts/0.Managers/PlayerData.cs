@@ -138,6 +138,32 @@ public class PlayerData : MonoBehaviour
     {
         return SkinsOwned.Contains(skinIndex);
     }
+    public int GetNextSkinUnlocked()
+    {
+        bool passByCrtP = false;
+        for (int i = 0; i < SkinsOwned.Count; i++)
+        {
+            if (passByCrtP) return SkinsOwned[i];
+            if (SkinsOwned[i] == CurrentSkinIdUsed)
+            {
+                passByCrtP = true;
+            }
+        }
+        return SkinsOwned[0];
+    }
+    public int GetPreviousSkinUnlocked()
+    {
+        bool passByCrtP = false;
+        for (int i = SkinsOwned.Count - 1; i >= 0; i--)
+        {
+            if (passByCrtP) return SkinsOwned[i];
+            if (SkinsOwned[i] == CurrentSkinIdUsed)
+            {
+                passByCrtP = true;
+            }
+        }
+        return SkinsOwned[SkinsOwned.Count - 1];
+    }
     #endregion
 
     #region Weapon
@@ -147,7 +173,7 @@ public class PlayerData : MonoBehaviour
     public Action<int> OnUnlockNewWeapon;
     private void SaveWeapon()
     {
-        for (int i = 0; i < Mathf.Min(GameConfig.WEAPON_LIMIT, CurrentWeaponsIdUsed.Count); i++)
+        for (int i = 0; i < GameConfig.WEAPON_LIMIT; i++)
             PlayerPrefs.SetInt(GameConfig.CURRENT_SKIN_KEY + i, CurrentWeaponsIdUsed[i]);
     }
     private void LoadWeapon()
@@ -157,7 +183,7 @@ public class PlayerData : MonoBehaviour
         List<int> defaultIds = InventoryManager.Instance.GetDefaultWeapons();
 
         for (int i = 0; i < GameConfig.WEAPON_LIMIT; i++)
-            CurrentWeaponsIdUsed.Add(PlayerPrefs.GetInt(GameConfig.CURRENT_SKIN_KEY, (i <= defaultIds.Count - 1) ? defaultIds[i] : -1));
+            CurrentWeaponsIdUsed.Add(PlayerPrefs.GetInt(GameConfig.CURRENT_SKIN_KEY + i, (i <= defaultIds.Count - 1) ? defaultIds[i] : -1));
     }
     private void SaveWeaponsOwned()
     {

@@ -16,7 +16,7 @@ public class GameConfig
 
     //Resources Link
     public const string SHOP_DATA_LINK = "Data/ShopData";
-    public const string SHOP_MAP_LINK = "Data/MapData";
+    public const string MAP_DATA_LINK = "Data/MapData";
 
     //Cheat
     public const string CHEAT_CORRECT_PASSWORD = "apusapus";

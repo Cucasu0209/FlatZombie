@@ -9,10 +9,12 @@ public class HomePopup : MonoBehaviour
     private void Start()
     {
         UIGlobalManager.Instance.OnGoToHome += OpenPopup;
+        UIGlobalManager.Instance.OnExitHome += ClosePopup;
     }
     private void OnDestroy()
     {
         UIGlobalManager.Instance.OnGoToHome -= OpenPopup;
+        UIGlobalManager.Instance.OnExitHome -= ClosePopup;
 
     }
     private void SetupStart()

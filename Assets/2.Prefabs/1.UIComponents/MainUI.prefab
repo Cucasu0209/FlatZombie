@@ -1215,6 +1215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88fbeb1d4329ccd4cbe018590be9ac62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SkinDisplayed: {fileID: 7405355818406523938}
+  WeaponDisplayed: {fileID: 5609950602962488082}
   SkinIndex: {fileID: 8634265422441451497}
   WeaponIndex: {fileID: 4137235927941049270}
 --- !u!1 &8935928611898972652

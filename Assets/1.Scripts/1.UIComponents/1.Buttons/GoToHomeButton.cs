@@ -12,6 +12,6 @@ public class GoToHomeButton : MonoBehaviour
     }
     private void OnGotoHomeBtnClick()
     {
-        UIGlobalManager.Instance.OnGoToHome?.Invoke();
+        UIGlobalManager.Instance.GoToHome();
     }
 }

@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6117180ef58fac6498c00e9f7c0d8536, type: 3}
-  m_Name: Skin0
+  m_Script: {fileID: 11500000, guid: 726e5d7e8f6d0df4f87febd5b408b41f, type: 3}
+  m_Name: Weapon22_OneHG
   m_EditorClassIdentifier: 
-  ID: 0
-  Name: Soilder 1
-  Price: 0
-  Tag: 0
+  ID: 22
+  Name: CZ-P10-C
+  Price: 6352
+  Type: 1
+  Tag: 1

@@ -17,13 +17,35 @@ public class UIGlobalManager : MonoBehaviour
     #region Events
     public Action OnOpenSettingPopup;
     public Action OnOpenSkinPopup;
-    public Action OnOpenShopPopup; 
+    public Action OnOpenShopPopup;
     public Action<Action<int>, Action> OnOpenSelectWeaponSlotPopup; // <Action Choose slot Index, Action Cancel>
 
     public Action OnGoToHome;
+    public Action OnExitHome;
     public Action OnGoToMap;
+    public Action OnExitMap;
     public Action OnGoToLobby;
+    public Action OnExitLobby;
     #endregion
 
-
+    #region Public Methods
+    public void GoToHome()
+    {
+        OnGoToHome?.Invoke();
+        OnExitLobby?.Invoke();
+        OnExitMap?.Invoke();
+    }
+    public void GoToMap()
+    {
+        OnGoToMap?.Invoke();
+        OnExitHome?.Invoke();
+        OnExitLobby?.Invoke();
+    }
+    public void GoToLobby()
+    {
+        OnGoToLobby?.Invoke();
+        OnExitHome?.Invoke();
+        OnExitMap?.Invoke();
+    }
+    #endregion
 }

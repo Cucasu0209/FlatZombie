@@ -12,6 +12,6 @@ public class GoToLobbyButton : MonoBehaviour
     }
     private void OnGotoLobbyBtnClick()
     {
-        UIGlobalManager.Instance.OnGoToLobby?.Invoke();
+        UIGlobalManager.Instance.GoToLobby();
     }
 }
