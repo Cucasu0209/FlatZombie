@@ -11,6 +11,7 @@ public class WeaponInfoPopup : MonoBehaviour
     [SerializeField] private TextMeshProUGUI WeaponName;
     [SerializeField] private Button CloseBtn;
     [SerializeField] private Button BuyBtn;
+    [SerializeField] private Button WatchBtn;
     [SerializeField] private TextMeshProUGUI PriceTxt;
     [SerializeField] private Button UseBtn;
     [SerializeField] private Button EliminateBtn;
@@ -18,10 +19,6 @@ public class WeaponInfoPopup : MonoBehaviour
     [Header("Damage")]
     [SerializeField] private Slider Damage;
     [SerializeField] private TextMeshProUGUI DamageTxt;
-
-    [Header("Headshot Damage")]
-    [SerializeField] private Slider HeadShotDamage;
-    [SerializeField] private TextMeshProUGUI HeadShotDamageTxt;
 
     [Header("FireRate")]
     [SerializeField] private Slider FireRate;
@@ -37,6 +34,7 @@ public class WeaponInfoPopup : MonoBehaviour
         SetupStart();
         CloseBtn.onClick.AddListener(ClosePopup);
         BuyBtn.onClick.AddListener(OnBuyBtnClick);
+        WatchBtn.onClick.AddListener(OnWatchBtnClick);
         UseBtn.onClick.AddListener(OnUseBtnClick);
         EliminateBtn.onClick.AddListener(OnEliminateBtnClick);
         UIGlobalManager.Instance.OnShowWeaponInfoPopup += ShowPopupWithWeaponID;
@@ -63,11 +61,9 @@ public class WeaponInfoPopup : MonoBehaviour
     {
         if (CurrentData is null) return;
         WeaponName.text = $"Weapon {CurrentData.ID}: {CurrentData.Name}";
+
         Damage.value = CurrentData.Damage / GameConfig.WEAPON_DAMAGE_MAX;
         DamageTxt.text = CurrentData.Damage.ToString();
-
-        HeadShotDamage.value = CurrentData.HeadShotDamage / GameConfig.WEAPON_HEADSHOT_DAMAGE_MAX;
-        HeadShotDamageTxt.text = CurrentData.HeadShotDamage.ToString();
 
         FireRate.value = CurrentData.FireRate / GameConfig.WEAPON_FIRERATE_MAX;
         FireRateTxt.text = CurrentData.FireRate.ToString();
@@ -89,7 +85,9 @@ public class WeaponInfoPopup : MonoBehaviour
 
         bool haveWeapon = PlayerData.Instance.HaveWeapon(CurrentData.ID);
         bool isUsed = PlayerData.Instance.CurrentWeaponsIdUsed.Contains(CurrentData.ID);
-        BuyBtn.gameObject.SetActive(haveWeapon == false);
+        BuyBtn.gameObject.SetActive(haveWeapon == false && CurrentData.Tag == ItemTag.BuyInShop);
+        WatchBtn.gameObject.SetActive(haveWeapon == false && CurrentData.Tag == ItemTag.WatchAds);
+
         UseBtn.gameObject.SetActive(haveWeapon && isUsed == false);
         EliminateBtn.gameObject.SetActive(haveWeapon && isUsed);
     }
@@ -109,6 +107,20 @@ public class WeaponInfoPopup : MonoBehaviour
     private void OnBuyBtnClick()
     {
         InventoryManager.Instance.RequestBuyWeapon(CurrentData.ID);
+    }
+    private void OnWatchBtnClick()
+    {
+        Debug.LogError("SHOW ADS");
+        InventoryManager.Instance.SelectWeapon(CurrentData.ID);
+        PlayerData.Instance.UnlockWeapon(CurrentData.ID);
+        UIGlobalManager.Instance.OnOpenSelectWeaponSlotPopup((slotIndex) =>
+        {
+            PlayerData.Instance.ChangeWeapon(CurrentData.ID, slotIndex);
+        },
+        () =>
+        {
+
+        });
     }
     private void OnUseBtnClick()
     {

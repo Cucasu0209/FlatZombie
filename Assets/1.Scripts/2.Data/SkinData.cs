@@ -8,6 +8,7 @@ public class SkinData : ScriptableObject
 {
     public int ID;
     public string Name;
+    public int HP;
     public int Price;
     public ItemTag Tag;
 }
