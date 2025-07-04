@@ -56,7 +56,7 @@ public class SelectWeaponSlotPopup : MonoBehaviour
     private void UpdateState()
     {
         List<int> slotsid = PlayerData.Instance.CurrentWeaponsIdUsed;
-        List<WeaponData> slotsData = slotsid.Select(id => InventoryManager.Instance.GetWeaponDataById(id)).ToList();
+        List<WeaponDetailData> slotsData = slotsid.Select(id => InventoryManager.Instance.GetWeaponDataById(id)).ToList();
 
         for (int i = 0; i < slotsData.Count; i++)
         {

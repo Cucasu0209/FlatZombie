@@ -15,26 +15,29 @@ public class LevelManager : MonoBehaviour
     #endregion
 
     #region Variables
-    public MapData CurrentMapData { get; private set; }
+    public LevelData LevelData { get; private set; }
     public int CurrentLevelIndex { get; private set; }
-    public Dictionary<int, LevelData> LevelDictionary { get; private set; }
+    public Dictionary<int, LevelDetailData> LevelDictionary { get; private set; }
 
     #endregion
 
-    #region Events;
+    #region Events
     public Action OnCurrentLevelChange;
     #endregion
-
+    public void DownloadLevelData(string newSID, string newGID, Action<List<List<string>>> OnSuccess, Action OnFail)
+    {
+        LevelData.LoadDataFromServer(newSID, newGID, OnSuccess, OnFail);
+    }
     private void LoadLevelsData()
     {
-        CurrentMapData = Resources.Load<MapData>(GameConfig.MAP_DATA_LINK);
-        CurrentLevelIndex = CurrentMapData.Levels[0].Index;
-        LevelDictionary = new Dictionary<int, LevelData>();
-        for (int i = 0; i < CurrentMapData.Levels.Count; i++)
+        LevelData = Resources.Load<LevelData>(GameConfig.LEVEL_DATA_LINK);
+        CurrentLevelIndex = LevelData.Levels[0].Level;
+        LevelDictionary = new Dictionary<int, LevelDetailData>();
+        for (int i = 0; i < LevelData.Levels.Count; i++)
         {
-            if (LevelDictionary.ContainsKey(CurrentMapData.Levels[i].Index) == false)
+            if (LevelDictionary.ContainsKey(LevelData.Levels[i].Level) == false)
             {
-                LevelDictionary.Add(CurrentMapData.Levels[i].Index, CurrentMapData.Levels[i]);
+                LevelDictionary.Add(LevelData.Levels[i].Level, LevelData.Levels[i]);
             }
         }
     }

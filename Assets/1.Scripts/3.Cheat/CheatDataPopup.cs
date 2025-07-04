@@ -33,40 +33,42 @@ public class CheatDataPopup : MonoBehaviour
 
     private void Start()
     {
+        SetupStart();
         DownloadSkinDataButton.onClick.AddListener(() =>
         {
             StateTxt.SetText("Downloading...");
             StateTxt.color = Color.white;
-            CloudCSVLoader.Instance.SetSheetID(SheetIDField.text);
-            CloudCSVLoader.Instance.SetGID(CloudCSVLoader.DataType.Skin, SkinIDField.text);
-            CloudCSVLoader.Instance.LoadData(CloudCSVLoader.DataType.Skin, OnDownloadComplete, OnDownloadFail);
+
+            InventoryManager.Instance.DownloadSkinData(SheetIDField.text, SkinIDField.text, OnDownloadComplete, OnDownloadFail);
         });
         DownloadWeaponDataButton.onClick.AddListener(() =>
         {
             StateTxt.SetText("Downloading...");
             StateTxt.color = Color.white;
-            CloudCSVLoader.Instance.SetSheetID(SheetIDField.text);
-            CloudCSVLoader.Instance.SetGID(CloudCSVLoader.DataType.Weapon, WeaponIDField.text);
-            CloudCSVLoader.Instance.LoadData(CloudCSVLoader.DataType.Weapon, OnDownloadComplete, OnDownloadFail);
+            InventoryManager.Instance.DownloadWeaponData(SheetIDField.text, WeaponIDField.text, OnDownloadComplete, OnDownloadFail);
+
         });
         DownloadZombieDataButton.onClick.AddListener(() =>
         {
             StateTxt.SetText("Downloading...");
             StateTxt.color = Color.white;
-            CloudCSVLoader.Instance.SetSheetID(SheetIDField.text);
-            CloudCSVLoader.Instance.SetGID(CloudCSVLoader.DataType.Zombie, ZombieIDField.text);
-            CloudCSVLoader.Instance.LoadData(CloudCSVLoader.DataType.Zombie, OnDownloadComplete, OnDownloadFail);
+            EnemyManager.Instance.DownloadZombieData(SheetIDField.text, ZombieIDField.text, OnDownloadComplete, OnDownloadFail);
+
         });
         DownloadLevelDataButton.onClick.AddListener(() =>
         {
             StateTxt.SetText("Downloading...");
             StateTxt.color = Color.white;
-            CloudCSVLoader.Instance.SetSheetID(SheetIDField.text);
-            CloudCSVLoader.Instance.SetGID(CloudCSVLoader.DataType.Level, LevelIDField.text);
-            CloudCSVLoader.Instance.LoadData(CloudCSVLoader.DataType.Level, OnDownloadComplete, OnDownloadFail);
+            LevelManager.Instance.DownloadLevelData(SheetIDField.text, LevelIDField.text, OnDownloadComplete, OnDownloadFail);
+
         });
         CloseButton.onClick.AddListener(ClosePopup);
-        OpenPopup();
+        CheatManager.Instance.OnOpenCheatDataPopup += OpenPopup;
+    }
+    private void OnDestroy()
+    {
+        CheatManager.Instance.OnOpenCheatDataPopup -= OpenPopup;
+
     }
     private void SetupStart()
     {
@@ -76,11 +78,11 @@ public class CheatDataPopup : MonoBehaviour
     }
     private void OpenPopup()
     {
-        SheetIDField.SetTextWithoutNotify(CloudCSVLoader.Instance.GetSheetID());
-        SkinIDField.SetTextWithoutNotify(CloudCSVLoader.Instance.GetGID(CloudCSVLoader.DataType.Skin));
-        WeaponIDField.SetTextWithoutNotify(CloudCSVLoader.Instance.GetGID(CloudCSVLoader.DataType.Weapon));
-        ZombieIDField.SetTextWithoutNotify(CloudCSVLoader.Instance.GetGID(CloudCSVLoader.DataType.Zombie));
-        LevelIDField.SetTextWithoutNotify(CloudCSVLoader.Instance.GetGID(CloudCSVLoader.DataType.Level));
+        SheetIDField.SetTextWithoutNotify(InventoryManager.Instance.SkinData.S_ID);
+        SkinIDField.SetTextWithoutNotify(InventoryManager.Instance.SkinData.G_ID);
+        WeaponIDField.SetTextWithoutNotify(InventoryManager.Instance.WeaponData.G_ID);
+        ZombieIDField.SetTextWithoutNotify(EnemyManager.Instance.ZombieData.G_ID);
+        LevelIDField.SetTextWithoutNotify(LevelManager.Instance.LevelData.G_ID);
         PopupBody.gameObject.SetActive(true);
     }
     private void ClosePopup()

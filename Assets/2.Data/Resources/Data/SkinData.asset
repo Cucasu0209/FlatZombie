@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6117180ef58fac6498c00e9f7c0d8536, type: 3}
+  m_Name: SkinData
+  m_EditorClassIdentifier: 
+  S_ID: 1Sj_jaTKhZGuY97XICBNCHPUvm4gycBR7Gg1HBZspkXk
+  G_ID: 0
+  Skins:
+  - ID: 0
+    Name: Soilder 1
+    HP: 150
+    Price: 0
+    Tag: 0
+  - ID: 1
+    Name: Soilder 2
+    HP: 160
+    Price: 550
+    Tag: 2
+  - ID: 2
+    Name: Soilder 3
+    HP: 200
+    Price: 750
+    Tag: 2
+  - ID: 3
+    Name: Doom
+    HP: 400
+    Price: 1500
+    Tag: 2
+  - ID: 4
+    Name: Soilder 4
+    HP: 170
+    Price: 600
+    Tag: 2
+  - ID: 5
+    Name: Soilder 5
+    HP: 220
+    Price: 800
+    Tag: 2
+  - ID: 6
+    Name: Sheriff
+    HP: 300
+    Price: 1000
+    Tag: 2
+  - ID: 7
+    Name: Soilder 7
+    HP: 160
+    Price: 550
+    Tag: 2
+  - ID: 8
+    Name: Soilder 8
+    HP: 210
+    Price: 780
+    Tag: 2

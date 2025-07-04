@@ -44,7 +44,7 @@ public class PlayerDisplayedHomeUI : MonoBehaviour
     private void UpdateWeapon()
     {
         string weaponString = "";
-        WeaponData wp;
+        WeaponDetailData wp;
 
         for (int i = 0; i < PlayerData.Instance.CurrentWeaponsIdUsed.Count; i++)
         {

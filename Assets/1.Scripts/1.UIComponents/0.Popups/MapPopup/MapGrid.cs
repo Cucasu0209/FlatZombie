@@ -23,7 +23,7 @@ public class MapGrid : MonoBehaviour
         }
 
         //Spawn New -> get data from list -> render
-        List<LevelData> levels = LevelManager.Instance.CurrentMapData.Levels;
+        List<LevelDetailData> levels = LevelManager.Instance.LevelData.Levels;
 
         for (int i = 0; i < levels.Count; i++)
         {

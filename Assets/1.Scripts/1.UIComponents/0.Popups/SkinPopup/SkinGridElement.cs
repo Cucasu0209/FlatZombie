@@ -16,7 +16,7 @@ public class SkinGridElement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI UsedMark;
     [SerializeField] private Button SelectButton;
 
-    private SkinData CurrentData;
+    private SkinDetailData CurrentData;
 
 
     private void Start()
@@ -31,7 +31,7 @@ public class SkinGridElement : MonoBehaviour
         InventoryManager.Instance.OnSelectSkin -= OnOneSkinSelected;
         PlayerData.Instance.OnCurrentSkinUsedChange -= OnOneSkinUsed;
     }
-    public void SetData(SkinData data)
+    public void SetData(SkinDetailData data)
     {
         CurrentData = data;
         UpdateState();

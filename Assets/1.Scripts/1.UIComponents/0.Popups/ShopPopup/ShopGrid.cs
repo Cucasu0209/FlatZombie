@@ -33,12 +33,12 @@ public class ShopGrid : MonoBehaviour
         }
 
         //Spawn New
-        for (int i = 0; i < InventoryManager.Instance.WeaponDatas_Type[InventoryManager.Instance.CurrentCategory].Count; i++)
+        for (int i = 0; i < InventoryManager.Instance.WeaponDatasDict_Type[InventoryManager.Instance.CurrentCategory].Count; i++)
         {
             ShopGridElement el = LeanPool.Spawn(GridElementPrefab, Content);
             el.transform.localScale = Vector3.one;
             CurrentDisplayedElements.Add(el);
-            el.SetData(InventoryManager.Instance.WeaponDatas_Type[InventoryManager.Instance.CurrentCategory][i]);
+            el.SetData(InventoryManager.Instance.WeaponDatasDict_Type[InventoryManager.Instance.CurrentCategory][i]);
         }
     }
 }

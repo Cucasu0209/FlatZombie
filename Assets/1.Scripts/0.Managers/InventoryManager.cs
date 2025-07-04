@@ -12,7 +12,8 @@ public class InventoryManager : MonoBehaviour
     {
         Instance = this;
 
-        LoadShopData();
+        LoadSkinData();
+        LoadWeaponData();
         UpdateWeaponList();
         UpdateSkinList();
     }
@@ -33,32 +34,34 @@ public class InventoryManager : MonoBehaviour
     }
     #endregion
 
-    #region Shop Data
-    public ShopData ShopData { get; private set; }
-    private void LoadShopData()
-    {
-        if (ShopData is null)
-        {
-            ShopData = Resources.Load<ShopData>(GameConfig.SHOP_DATA_LINK);
-        }
-    }
-    #endregion
-
     #region Skin Data
-    public Dictionary<int, SkinData> SkinDatas { get; private set; }
+    public SkinData SkinData { get; private set; }
+
+    public Dictionary<int, SkinDetailData> SkinDataDict { get; private set; }
     public int CurrentSkinIdSelected { get; private set; }
     public Action OnSelectSkin;
+    public void DownloadSkinData(string newSID, string newGID, Action<List<List<string>>> OnSuccess, Action OnFail)
+    {
+        SkinData.LoadDataFromServer(newSID, newGID, OnSuccess, OnFail);
+    }
+    private void LoadSkinData()
+    {
+        if (SkinData is null)
+        {
+            SkinData = Resources.Load<SkinData>(GameConfig.SKIN_DATA_LINK);
+        }
+    }
     private void UpdateSkinList()
     {
-        if (ShopData is null) LoadShopData();
-        if (ShopData != null)
+        if (SkinData is null) LoadSkinData();
+        if (SkinData != null)
         {
-            if (SkinDatas is null) SkinDatas = new Dictionary<int, SkinData>();
-            else SkinDatas.Clear();
+            if (SkinDataDict is null) SkinDataDict = new Dictionary<int, SkinDetailData>();
+            else SkinDataDict.Clear();
 
-            for (int i = 0; i < ShopData.Skins.Count; i++)
+            for (int i = 0; i < SkinData.Skins.Count; i++)
             {
-                SkinDatas.Add(ShopData.Skins[i].ID, ShopData.Skins[i]);
+                SkinDataDict.Add(SkinData.Skins[i].ID, SkinData.Skins[i]);
             }
         }
     }
@@ -76,7 +79,7 @@ public class InventoryManager : MonoBehaviour
     }
     public void RequestBuySkin(int skinId)
     {
-        SkinData skin = GetSkinDataById(skinId);
+        SkinDetailData skin = GetSkinDataById(skinId);
         if (skin != null)
         {
             PlayerData.Instance.BuyItem(skin.Price,
@@ -95,49 +98,61 @@ public class InventoryManager : MonoBehaviour
     public List<int> GetDefaultSkins()
     {
         List<int> result = new List<int>();
-        for (int i = 0; i < ShopData.Skins.Count; i++)
+        for (int i = 0; i < SkinData.Skins.Count; i++)
         {
-            if (ShopData.Skins[i].Tag == ItemTag.Default) result.Add(ShopData.Skins[i].ID);
+            if (SkinData.Skins[i].Tag == ItemTag.Default) result.Add(SkinData.Skins[i].ID);
         }
         return result;
     }
-    public SkinData GetSkinDataById(int id)
+    public SkinDetailData GetSkinDataById(int id)
     {
-        if (SkinDatas.ContainsKey(id)) return SkinDatas[id];
+        if (SkinDataDict.ContainsKey(id)) return SkinDataDict[id];
         return null;
     }
     #endregion
 
     #region Weapon Data
+    public WeaponData WeaponData { get; private set; }
+    private void LoadWeaponData()
+    {
+        if (WeaponData is null)
+        {
+            WeaponData = Resources.Load<WeaponData>(GameConfig.WEAPON_DATA_LINK);
+        }
+    }
     public WeaponType CurrentCategory { get; private set; } = WeaponType.Melee;
     public Action OnChangeCategory;
-    public Dictionary<WeaponType, List<WeaponData>> WeaponDatas_Type { get; private set; }
-    public Dictionary<int, WeaponData> WeaponDatas_All { get; private set; }
+    public Dictionary<WeaponType, List<WeaponDetailData>> WeaponDatasDict_Type { get; private set; }
+    public Dictionary<int, WeaponDetailData> WeaponDatasDict_All { get; private set; }
     public int CurrentWeaponIdSelected { get; private set; }
     public Action OnSelectWeapon;
+    public void DownloadWeaponData(string newSID, string newGID, Action<List<List<string>>> OnSuccess, Action OnFail)
+    {
+        WeaponData.LoadDataFromServer(newSID, newGID, OnSuccess, OnFail);
+    }
     private void UpdateWeaponList()
     {
-        if (ShopData is null) LoadShopData();
-        if (ShopData != null)
+        if (WeaponData is null) LoadWeaponData();
+        if (WeaponData != null)
         {
-            if (WeaponDatas_Type is null) WeaponDatas_Type = new Dictionary<WeaponType, List<WeaponData>>();
-            else WeaponDatas_Type.Clear();
+            if (WeaponDatasDict_Type is null) WeaponDatasDict_Type = new Dictionary<WeaponType, List<WeaponDetailData>>();
+            else WeaponDatasDict_Type.Clear();
 
-            if (WeaponDatas_All is null) WeaponDatas_All = new Dictionary<int, WeaponData>();
-            else WeaponDatas_All.Clear();
+            if (WeaponDatasDict_All is null) WeaponDatasDict_All = new Dictionary<int, WeaponDetailData>();
+            else WeaponDatasDict_All.Clear();
 
-            for (int i = 0; i < ShopData.Weapons.Count; i++)
+            for (int i = 0; i < WeaponData.Weapons.Count; i++)
             {
-                if (WeaponDatas_Type.ContainsKey(ShopData.Weapons[i].Type))
+                if (WeaponDatasDict_Type.ContainsKey(WeaponData.Weapons[i].Type))
                 {
-                    WeaponDatas_Type[ShopData.Weapons[i].Type].Add(ShopData.Weapons[i]);
+                    WeaponDatasDict_Type[WeaponData.Weapons[i].Type].Add(WeaponData.Weapons[i]);
                 }
                 else
                 {
-                    WeaponDatas_Type.Add(ShopData.Weapons[i].Type, new List<WeaponData>() { ShopData.Weapons[i] });
+                    WeaponDatasDict_Type.Add(WeaponData.Weapons[i].Type, new List<WeaponDetailData>() { WeaponData.Weapons[i] });
                 }
 
-                WeaponDatas_All.Add(ShopData.Weapons[i].ID, ShopData.Weapons[i]);
+                WeaponDatasDict_All.Add(WeaponData.Weapons[i].ID, WeaponData.Weapons[i]);
             }
         }
 
@@ -154,7 +169,7 @@ public class InventoryManager : MonoBehaviour
     }
     public void RequestBuyWeapon(int weaponId)
     {
-        WeaponData weapon = GetWeaponDataById(weaponId);
+        WeaponDetailData weapon = GetWeaponDataById(weaponId);
         if (weapon != null)
         {
             PlayerData.Instance.BuyItem(weapon.Price,
@@ -177,17 +192,17 @@ public class InventoryManager : MonoBehaviour
             });
         }
     }
-    public WeaponData GetWeaponDataById(int id)
+    public WeaponDetailData GetWeaponDataById(int id)
     {
-        if (WeaponDatas_All.ContainsKey(id)) return WeaponDatas_All[id];
+        if (WeaponDatasDict_All.ContainsKey(id)) return WeaponDatasDict_All[id];
         return null;
     }
     public List<int> GetDefaultWeapons()
     {
         List<int> result = new List<int>();
-        for (int i = 0; i < ShopData.Weapons.Count; i++)
+        for (int i = 0; i < WeaponData.Weapons.Count; i++)
         {
-            if (ShopData.Weapons[i].Tag == ItemTag.Default) result.Add(ShopData.Weapons[i].ID);
+            if (WeaponData.Weapons[i].Tag == ItemTag.Default) result.Add(WeaponData.Weapons[i].ID);
         }
         return result;
     }

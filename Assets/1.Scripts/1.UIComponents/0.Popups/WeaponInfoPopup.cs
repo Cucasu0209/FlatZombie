@@ -28,7 +28,7 @@ public class WeaponInfoPopup : MonoBehaviour
     [SerializeField] private Slider Magazine;
     [SerializeField] private TextMeshProUGUI MagazineTxt;
 
-    private WeaponData CurrentData;
+    private WeaponDetailData CurrentData;
     private void Start()
     {
         SetupStart();
@@ -52,7 +52,7 @@ public class WeaponInfoPopup : MonoBehaviour
         SetData(InventoryManager.Instance.GetWeaponDataById(weaponId));
         OpenPopup();
     }
-    private void SetData(WeaponData data)
+    private void SetData(WeaponDetailData data)
     {
         CurrentData = data;
         UpdateState();

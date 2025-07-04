@@ -9,7 +9,7 @@ public class MapGridElement : MonoBehaviour
     [SerializeField] private Button SelectBtn;
     [SerializeField] private TextMeshProUGUI MapDescription;
     [SerializeField] private Image SelectBG;
-    private LevelData currentData;
+    private LevelDetailData currentData;
 
     private void Start()
     {
@@ -21,18 +21,18 @@ public class MapGridElement : MonoBehaviour
         LevelManager.Instance.OnCurrentLevelChange -= UpdateState;
 
     }
-    public void SetData(LevelData data)
+    public void SetData(LevelDetailData data)
     {
         currentData = data;
         UpdateState();
     }
     private void UpdateState()
     {
-        MapDescription.SetText($"Map {currentData.Index}: {currentData.Description}");
-        SelectBG.gameObject.SetActive(currentData.Index == LevelManager.Instance.CurrentLevelIndex);
+        MapDescription.SetText($"Map {currentData.Level}: {currentData.Map.ToString()}");
+        SelectBG.gameObject.SetActive(currentData.Level == LevelManager.Instance.CurrentLevelIndex);
     }
     private void OnElementClick()
     {
-        LevelManager.Instance.ChangeLevel(currentData.Index);
+        LevelManager.Instance.ChangeLevel(currentData.Level);
     }
 }

@@ -19,7 +19,7 @@ public class ShopGridElement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI UsedMark;
     [SerializeField] private Button SelectButton;
 
-    private WeaponData CurrentData;
+    private WeaponDetailData CurrentData;
 
     private void Start()
     {
@@ -37,7 +37,7 @@ public class ShopGridElement : MonoBehaviour
         PlayerData.Instance.OnCurrentWeaponUsedChange -= OnOneWeaponUsed;
         PlayerData.Instance.OnUnlockNewWeapon -= UpdateState;
     }
-    public void SetData(WeaponData data)
+    public void SetData(WeaponDetailData data)
     {
         CurrentData = data;
         UpdateState();

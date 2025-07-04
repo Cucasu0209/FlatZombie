@@ -17,6 +17,7 @@ public class CheatManager : MonoBehaviour
 
 
     public Action OnOpenCheatPopup;
+    public Action OnOpenCheatDataPopup;
     private bool IsDragging = false;
     private Vector2 MousePos;
     private List<Vector2> ScreenCorners;

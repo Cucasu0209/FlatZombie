@@ -7,11 +7,13 @@ public class CheatPopup : MonoBehaviour
 {
     [SerializeField] private Image Dark;
     [SerializeField] private Button CloseButton;
+    [SerializeField] private Button OpenDataTable;
 
     void Start()
     {
         SetupStart();
         CloseButton.onClick.AddListener(ClosePopup);
+        OpenDataTable.onClick.AddListener(() => CheatManager.Instance.OnOpenCheatDataPopup?.Invoke());
 
         CheatManager.Instance.OnOpenCheatPopup += CheckAndOpen;
     }

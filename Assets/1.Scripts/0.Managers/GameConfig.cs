@@ -15,8 +15,10 @@ public class GameConfig
 
 
     //Resources Link
-    public const string SHOP_DATA_LINK = "Data/ShopData";
-    public const string MAP_DATA_LINK = "Data/MapData";
+    public const string SKIN_DATA_LINK = "Data/SkinData";
+    public const string WEAPON_DATA_LINK = "Data/WeaponData";
+    public const string ZOMBIE_DATA_LINK = "Data/ZombieData";
+    public const string LEVEL_DATA_LINK = "Data/LevelData";
 
     //Cheat
     public const string CHEAT_CORRECT_PASSWORD = "apusapus";

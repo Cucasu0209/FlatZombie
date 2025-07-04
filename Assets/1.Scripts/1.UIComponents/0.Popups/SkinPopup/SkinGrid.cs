@@ -24,12 +24,12 @@ public class SkinGrid : MonoBehaviour
 
 
         //Spawn New
-        for (int i = 0; i < InventoryManager.Instance.ShopData.Skins.Count; i++)
+        for (int i = 0; i < InventoryManager.Instance.SkinData.Skins.Count; i++)
         {
             SkinGridElement el = LeanPool.Spawn(GridElementPrefab, Content);
             el.transform.localScale = Vector3.one;
             CurrentDisplayedElements.Add(el);
-            el.SetData(InventoryManager.Instance.ShopData.Skins[i]);
+            el.SetData(InventoryManager.Instance.SkinData.Skins[i]);
         }
     }
 }

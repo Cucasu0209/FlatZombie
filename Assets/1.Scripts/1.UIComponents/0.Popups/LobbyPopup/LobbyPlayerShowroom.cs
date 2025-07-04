@@ -24,7 +24,7 @@ public class LobbyPlayerShowroom : MonoBehaviour
     public void UpdateState()
     {
         string weaponData = "Weapon:";
-        WeaponData wp;
+        WeaponDetailData wp;
         for (int i = 0; i < PlayerData.Instance.CurrentWeaponsIdUsed.Count; i++)
         {
             wp = InventoryManager.Instance.GetWeaponDataById(PlayerData.Instance.CurrentWeaponsIdUsed[i]);

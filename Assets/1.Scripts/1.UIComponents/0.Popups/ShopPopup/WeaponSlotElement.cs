@@ -19,7 +19,7 @@ public class WeaponSlotElement : MonoBehaviour
     {
         OnSelectSlot?.Invoke(SlotIndex);
     }
-    public void SetData(WeaponData weapon, int slotIndex, Action<int> onSelectSlot)
+    public void SetData(WeaponDetailData weapon, int slotIndex, Action<int> onSelectSlot)
     {
         SlotIndex = slotIndex;
         OnSelectSlot = onSelectSlot;
