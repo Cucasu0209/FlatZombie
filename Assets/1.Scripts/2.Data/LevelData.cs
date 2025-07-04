@@ -1,8 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+
+using UnityEditor;
+#endif
 [CreateAssetMenu(fileName = "LevelData", menuName = "Data/LevelData", order = 0)]
 public class LevelData : ScriptableObject
 {

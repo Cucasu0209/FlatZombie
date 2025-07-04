@@ -1,8 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+
+using UnityEditor;
+#endif
 [CreateAssetMenu(fileName = "WeaponData", menuName = "Data/WeaponData", order = 0)]
 public class WeaponData : ScriptableObject
 {

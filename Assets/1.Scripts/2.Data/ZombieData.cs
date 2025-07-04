@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+
 using UnityEditor;
-using System.Threading.Tasks;
+#endif
 
 [CreateAssetMenu(fileName = "ZombieData", menuName = "Data/ZombieData", order = 0)]
 
