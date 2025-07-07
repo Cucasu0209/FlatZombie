@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoveButton : MonoBehaviour,ihan
+public class MoveButton : MonoBehaviour
 {
     public enum MoveDir { Back, Forward }
     [SerializeField] private MoveDir Direction;
