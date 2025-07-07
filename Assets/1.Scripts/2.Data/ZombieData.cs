@@ -31,14 +31,14 @@ public class ZombieData : ScriptableObject
                     {
                         switch (data[0][j].Trim())
                         {
-                            case "ID": int.TryParse(data[i][j], out zb.ID); break;
-                            case "Name": zb.Name = data[i][j]; break;
-                            case "HP": int.TryParse(data[i][j], out zb.HP); break;
-                            case "Speed": float.TryParse(data[i][j], out zb.Speed); break;
-                            case "Damage": int.TryParse(data[i][j], out zb.Damage); break;
-                            case "AttackSpeed": int.TryParse(data[i][j], out zb.AttackSpeed); break;
-                            case "NickName": zb.NickName = data[i][j]; break;
-                            case "Price": int.TryParse(data[i][j], out zb.Price); break;
+                            case nameof(zb.ID): int.TryParse(data[i][j], out zb.ID); break;
+                            case nameof(zb.Name): zb.Name = data[i][j]; break;
+                            case nameof(zb.HP): int.TryParse(data[i][j], out zb.HP); break;
+                            case nameof(zb.Speed): float.TryParse(data[i][j], out zb.Speed); break;
+                            case nameof(zb.Damage): int.TryParse(data[i][j], out zb.Damage); break;
+                            case nameof(zb.AttackSpeed): int.TryParse(data[i][j], out zb.AttackSpeed); break;
+                            case nameof(zb.NickName): zb.NickName = data[i][j]; break;
+                            case nameof(zb.Price): int.TryParse(data[i][j], out zb.Price); break;
                         }
                     }
 
@@ -47,6 +47,41 @@ public class ZombieData : ScriptableObject
 
                 OnSuccess?.Invoke(data);
             }, OnFail);
+    }
+
+    public List<List<string>> GetCsvData()
+    {
+        List<List<string>> result = new List<List<string>>();
+        ZombieDetailData z = Zombies[0];
+        //tittle
+        result.Add(new List<string>()
+        {
+           nameof(z.ID),
+           nameof(z.Name),
+           nameof(z.HP),
+           nameof(z.Speed),
+           nameof(z.Damage),
+           nameof(z.AttackSpeed),
+           nameof(z.NickName),
+           nameof(z.Price),
+        });
+        //data  
+        for (int i = 1; i <= Zombies.Count; i++)
+        {
+            result.Add(new List<string>()
+            {
+                Zombies[i - 1].ID.ToString(),
+                Zombies[i - 1].Name.ToString(),
+                Zombies[i - 1].HP.ToString(),
+                Zombies[i - 1].Speed.ToString(),
+                Zombies[i - 1].Damage.ToString(),
+                Zombies[i - 1].AttackSpeed.ToString(),
+                Zombies[i - 1].NickName.ToString(),
+                Zombies[i - 1].Price.ToString(),
+            });
+        }
+
+        return result;
     }
 }
 [Serializable]

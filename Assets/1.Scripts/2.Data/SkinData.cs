@@ -27,15 +27,13 @@ public class SkinData : ScriptableObject
 
                     for (int j = 0; j < data[i].Count; j++)
                     {
-                        Debug.Log(data[0][j]);
-
                         switch (data[0][j].Trim())
                         {
-                            case "ID": int.TryParse(data[i][j], out sk.ID); break;
-                            case "Name": sk.Name = data[i][j]; break;
-                            case "HP": int.TryParse(data[i][j], out sk.HP); break;
-                            case "Price": int.TryParse(data[i][j], out sk.Price); break;
-                            case "Tag": ItemTag.TryParse(data[i][j], out sk.Tag); break;
+                            case nameof(sk.ID): int.TryParse(data[i][j].Trim(), out sk.ID); break;
+                            case nameof(sk.Name): sk.Name = data[i][j].Trim(); break;
+                            case nameof(sk.HP): int.TryParse(data[i][j].Trim(), out sk.HP); break;
+                            case nameof(sk.Price): int.TryParse(data[i][j].Trim(), out sk.Price); break;
+                            case nameof(sk.Tag): ItemTag.TryParse(data[i][j].Trim(), out sk.Tag); break;
                         }
                     }
 
@@ -45,6 +43,35 @@ public class SkinData : ScriptableObject
                 OnSuccess?.Invoke(data);
             }, OnFail);
     }
+    public List<List<string>> GetCsvData()
+    {
+        List<List<string>> result = new List<List<string>>();
+        SkinDetailData sk = Skins[0];
+        //tittle
+        result.Add(new List<string>()
+        {
+           nameof(sk.ID),
+           nameof(sk.Name),
+           nameof(sk.HP),
+           nameof(sk.Price),
+           nameof(sk.Tag),
+        });
+        //data  
+        for (int i = 1; i <= Skins.Count; i++)
+        {
+            result.Add(new List<string>()
+            {
+                Skins[i - 1].ID.ToString(),
+                Skins[i - 1].Name.ToString(),
+                Skins[i - 1].HP.ToString(),
+                Skins[i - 1].Price.ToString(),
+                Skins[i - 1].Tag.ToString(),
+            });
+        }
+
+        return result;
+    }
+
 }
 
 [Serializable]

@@ -45,7 +45,7 @@ public class CheatTableData : MonoBehaviour
 
         }
         yield return new WaitForSeconds(0.1f);
-        GameObject D = Instantiate(new GameObject("a"), Content);
-        Destroy(D, 0.1f);
+        GameObject D = LeanPool.Spawn(ColumnPrefab.gameObject, Content);
+        LeanPool.Despawn(D, 0.1f);
     }
 }

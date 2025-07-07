@@ -34,6 +34,24 @@ public class CheatDataPopup : MonoBehaviour
     private void Start()
     {
         SetupStart();
+
+        ShowLevelDataButton.onClick.AddListener(() =>
+        {
+            ShowData(LevelManager.Instance.LevelData.GetCsvData());
+        });
+        ShowWeaponDataButton.onClick.AddListener(() =>
+        {
+            ShowData(InventoryManager.Instance.WeaponData.GetCsvData());
+        });
+        ShowSkinDataButton.onClick.AddListener(() =>
+        {
+            ShowData(InventoryManager.Instance.SkinData.GetCsvData());
+        });
+        ShowZombieDataButton.onClick.AddListener(() =>
+        {
+            ShowData(EnemyManager.Instance.ZombieData.GetCsvData());
+        });
+
         DownloadSkinDataButton.onClick.AddListener(() =>
         {
             StateTxt.SetText("Downloading...");

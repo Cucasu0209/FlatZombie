@@ -31,7 +31,7 @@ public class LevelData : ScriptableObject
                     {
                         switch (data[0][j].Trim())
                         {
-                            case "Level": int.TryParse(data[i][j], out level); break;
+                            case "Level": int.TryParse(data[i][j].Trim(), out level); break;
                         }
                     }
 
@@ -52,16 +52,18 @@ public class LevelData : ScriptableObject
                         {
                             switch (data[0][j].Trim())
                             {
-                                case "ID": int.TryParse(data[i][j], out lv.ID); break;
-                                case "Map": MapType.TryParse(data[i][j], out lv.Map); break;
-                                case "Wave": int.TryParse(data[i][j], out lv.Waves[lv.Waves.Count - 1].WaveIndex); break;
-                                case "Z01": lv.Waves[lv.Waves.Count - 1].Zombies[0] = int.Parse(data[i][j]); break;
-                                case "Z02": lv.Waves[lv.Waves.Count - 1].Zombies[1] = int.Parse(data[i][j]); break;
-                                case "Z03": lv.Waves[lv.Waves.Count - 1].Zombies[2] = int.Parse(data[i][j]); break;
-                                case "Z04": lv.Waves[lv.Waves.Count - 1].Zombies[3] = int.Parse(data[i][j]); break;
-                                case "Z05": lv.Waves[lv.Waves.Count - 1].Zombies[4] = int.Parse(data[i][j]); break;
-                                case "Z06": lv.Waves[lv.Waves.Count - 1].Zombies[5] = int.Parse(data[i][j]); break;
-                                case "Z07": lv.Waves[lv.Waves.Count - 1].Zombies[6] = int.Parse(data[i][j]); break;
+                                case nameof(lv.ID): int.TryParse(data[i][j].Trim(), out lv.ID); break;
+                                case nameof(lv.Map): MapType.TryParse(data[i][j].Trim(), out lv.Map); break;
+                                case nameof(lv.Waves): int.TryParse(data[i][j].Trim(), out lv.Waves[lv.Waves.Count - 1].WaveIndex); break;
+
+                            }
+                            for (int zIndex = 0; zIndex < lv.Waves[lv.Waves.Count - 1].Zombies.Count; zIndex++)
+                            {
+                                if (data[0][j].Trim() == $"Z0{zIndex + 1}")
+                                {
+                                    lv.Waves[lv.Waves.Count - 1].Zombies[zIndex] = int.Parse(data[i][j].Trim());
+                                    break;
+                                }
                             }
                         }
                         levelDict.Add(level, lv);
@@ -81,14 +83,15 @@ public class LevelData : ScriptableObject
                         {
                             switch (data[0][j].Trim())
                             {
-                                case "Wave": int.TryParse(data[i][j], out lv.Waves[lv.Waves.Count - 1].WaveIndex); break;
-                                case "Z01": lv.Waves[lv.Waves.Count - 1].Zombies[0] = int.Parse(data[i][j]); break;
-                                case "Z02": lv.Waves[lv.Waves.Count - 1].Zombies[1] = int.Parse(data[i][j]); break;
-                                case "Z03": lv.Waves[lv.Waves.Count - 1].Zombies[2] = int.Parse(data[i][j]); break;
-                                case "Z04": lv.Waves[lv.Waves.Count - 1].Zombies[3] = int.Parse(data[i][j]); break;
-                                case "Z05": lv.Waves[lv.Waves.Count - 1].Zombies[4] = int.Parse(data[i][j]); break;
-                                case "Z06": lv.Waves[lv.Waves.Count - 1].Zombies[5] = int.Parse(data[i][j]); break;
-                                case "Z07": lv.Waves[lv.Waves.Count - 1].Zombies[6] = int.Parse(data[i][j]); break;
+                                case nameof(lv.Waves): int.TryParse(data[i][j].Trim(), out lv.Waves[lv.Waves.Count - 1].WaveIndex); break;
+                            }
+                            for (int zIndex = 0; zIndex < lv.Waves[lv.Waves.Count - 1].Zombies.Count; zIndex++)
+                            {
+                                if (data[0][j].Trim() == $"Z0{zIndex + 1}")
+                                {
+                                    lv.Waves[lv.Waves.Count - 1].Zombies[zIndex] = int.Parse(data[i][j].Trim());
+                                    break;
+                                }
                             }
                         }
                     }
@@ -97,6 +100,43 @@ public class LevelData : ScriptableObject
                 foreach (var level in levelDict.Values) Levels.Add(level);
                 OnSuccess?.Invoke(data);
             }, OnFail);
+    }
+    public List<List<string>> GetCsvData()
+    {
+        List<List<string>> result = new List<List<string>>();
+        LevelDetailData z = Levels[0];
+        //tittle
+        result.Add(new List<string>()
+        {
+           nameof(z.ID),
+           nameof(z.Map),
+           nameof(z.Level),
+           nameof(z.Waves),
+        });
+        for (int zIndex = 0; zIndex < Levels[0].Waves[0].Zombies.Count; zIndex++)
+        {
+            result[0].Add($"Z0{zIndex + 1}");
+        }
+
+        //data
+        for (int i = 1; i <= Levels.Count; i++)
+        {
+            for (int w = 1; w <= Levels[i - 1].Waves.Count; w++)
+            {
+                List<string> l = new List<string>();
+                l.Add(Levels[i - 1].ID.ToString());
+                l.Add(Levels[i - 1].Map.ToString());
+                l.Add(Levels[i - 1].Level.ToString());
+                l.Add(Levels[i - 1].Waves[w - 1].ToString());
+                for (int zIndex = 1; zIndex <= Levels[i - 1].Waves[w - 1].Zombies.Count; zIndex++)
+                {
+                    l.Add(Levels[i - 1].Waves[w - 1].Zombies[zIndex - 1].ToString());
+                }
+                result.Add(l);
+            }
+        }
+        return result;
+
     }
 }
 
